@@ -1,0 +1,24 @@
+{
+  "name": "e-shop",
+  "version": "1.0.0",
+  "description": "simple web app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zellymiriam/e-shop.git"
+  },
+  "author": "Miriam Nakiwuge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zellymiriam/e-shop/issues"
+  },
+  "homepage": "https://github.com/zellymiriam/e-shop#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "body-parser": "*",
+    "mongoose": "*"
+  }
+}
