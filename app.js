@@ -62,6 +62,16 @@ app.put('/api/items/:id', (req,res)=>{
     })
 })
 
+app.delete('/api/items/:id', (req,res)=>{
+    const id = req.params.id
+    Item.deleteItem(id, (err, item)=>{
+        if(err){
+            throw err;
+        }
+        res.json(item)
+    })
+})
+
 app.listen(3000, ()=>{
     console.log('started..')
 })

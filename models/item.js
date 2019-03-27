@@ -61,3 +61,9 @@ module.exports.updateItem = (id, item,options,callback) => {
     }
     Item.findOneAndUpdate(query, update, options, callback)
 }
+
+//delete item
+module.exports.deleteItem = (id, callback) => {
+    const query = {_id: id}
+    Item.remove(query, callback)
+}
