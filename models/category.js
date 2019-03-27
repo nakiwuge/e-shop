@@ -14,7 +14,13 @@ const categorySchema = mongoose.Schema({
 const Category = module.exports = mongoose.model('Category', categorySchema)
 
 // get Categories
-module.exports.getCategories = (callback, limit) => {
-    Category.find(callback).limit(limit)
-
+module.exports.getCategories = (req, res) => {
+    Category.find()
+    .then(categories => {
+        res.json(categories);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving notes."
+        });
+    });
 }
