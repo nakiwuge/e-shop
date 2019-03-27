@@ -51,6 +51,17 @@ app.post('/api/items', (req,res)=>{
     })
 })
 
+app.put('/api/items/:id', (req,res)=>{
+    const id = req.params.id
+    const item = req.body;
+    Item.updateItem(id, item, {}, (err, item)=>{
+        if(err){
+            throw err;
+        }
+        res.json(item)
+    })
+})
+
 app.listen(3000, ()=>{
     console.log('started..')
 })

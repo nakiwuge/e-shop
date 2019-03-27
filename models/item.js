@@ -48,3 +48,16 @@ module.exports.getItemById = (id,callback) => {
 module.exports.addItem = (item,callback) => {
     Item.create(item, callback)
 }
+
+// update item
+module.exports.updateItem = (id, item,options,callback) => {
+    const query = {_id: id}
+    const update ={
+        title: item.title,
+        category: item.category,
+        size: item.size,
+        price: item.price,
+        image_url: item.image_url
+    }
+    Item.findOneAndUpdate(query, update, options, callback)
+}
