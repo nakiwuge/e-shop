@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/zellymiriam/e-shop#readme",
   "dependencies": {
-    "express": "^4.16.4",
     "body-parser": "*",
-    "mongoose": "*"
+    "express": "^4.16.4",
+    "mongoose": "*",
+    "pg": "^7.9.0"
   }
 }
