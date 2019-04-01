@@ -1,26 +1,15 @@
-const mongoose = require('mongoose')
+const Sequelize = require('sequelize')
+const db = require('../config/database')
 
-const categorySchema = mongoose.Schema({
+const category = db.define('category', {
     name:{
-        type: String,
-        required: true
-    },
-    create_date: {
-        type: Date,
-        default: Date.now
-    },
-})
-
-const Category = module.exports = mongoose.model('Category', categorySchema)
-
-// get Categories
-module.exports.getCategories = (req, res) => {
-    Category.find()
-    .then(categories => {
-        res.json(categories);
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving notes."
-        });
-    });
-}
+      type:Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        customValidator(value) {
+          if (value === null | value.length < 3) {
+            throw new Error("name can't be null ");
+          }}
+    }
+  }});
+module.exports = category

@@ -1,5 +1,6 @@
-const category = require('../models/category')
+const Category = require('../controllers/category')
 
 module.exports = (app)=>{
-    app.get('/api/categories', category.getCategories)
+    app.get('/api/categories', Category.getCategory)
+    app.post('/api/categories', Category.addCategory)
 }
