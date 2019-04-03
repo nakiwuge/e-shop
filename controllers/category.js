@@ -1,11 +1,12 @@
-const db = require('../config/database')
 const Category = require('../models/category')
+const Validate = require('../helpers/validation')
 
+let doValidation;
 
 //get a category
 module.exports.getCategory = (req, res) => {
     Category.findAll().then(categories => {
-        res.send({
+        res.status(201).json({
             data: categories,
             message: "The categories have been retrieved successfully"})
     }).catch(err => {
@@ -18,6 +19,12 @@ module.exports.getCategory = (req, res) => {
 //add a category
 module.exports.addCategory = (req, res) => {
     data = { name: req.body.name }
+    doValidation = new Validate(data.name)
+
+    if(doValidation.shouldNotBeEmpty()){
+        return res.send({
+            message: doValidation.shouldNotBeEmpty()})
+    }
 
     Category.create(data).then(category => {
         res.send({
@@ -29,3 +36,4 @@ module.exports.addCategory = (req, res) => {
         });
     })
 }
+
