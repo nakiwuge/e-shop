@@ -1,4 +1,6 @@
 const Item = require('../models/item')
+const Validate = require('../helpers/validation')
+
 let doValidation;
 //get all Items
 module.exports.getItems = (req,res) => {
@@ -22,17 +24,14 @@ module.exports.addItem = (req,res) => {
         description,
         price,
         category,
-        imageUrl:req.file.path
+        imageUrl: req.file && req.file.path
     }
-    // doValidation1 = new Validate(data.title)
-    // doValidation = new Validate(data.price)
-    // doValidation = new Validate(data.category)
-    // doValidation = new Validate(data.imageUrl)
+    doValidation = new Validate(title,price,category,data.imageUrl)
 
-    // if(doValidation.shouldNotBeEmpty()){
-    //     return res.send({
-    //         message: doValidation.shouldNotBeEmpty()})
-    // }
+    if(doValidation.shouldNotBeEmpty()){
+        return res.send({
+            message: doValidation.shouldNotBeEmpty()})
+    }
 
     Item.create(data).then((item)=>{
         res.send({

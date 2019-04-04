@@ -1,13 +1,17 @@
 class Validate {
-    constructor (fieldName) {
-        this.fieldName = fieldName
+    constructor (...values) {
+        this.values = values
     }
 
     shouldNotBeEmpty () {
-        if(!this.fieldName || !this.fieldName.trim()){
-            console.log("jjjj")
-            return "This field cannot be empty"
-        }
+        let message;
+
+        this.values.forEach(value => {
+            if(!value || !value.trim()){
+               message = "This field cannot be empty"
+        }})
+
+        return message
     }
 }
 
