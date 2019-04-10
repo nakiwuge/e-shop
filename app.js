@@ -11,8 +11,9 @@ db.sync().then(()=>{
     console.log(err)
 })
 
-require('./routes/category-routes')(app);
-require('./routes/item-routes')(app);
+require('./routes/category')(app);
+require('./routes/item')(app);
+require('./routes/user')(app);
 
 app.listen(3000, ()=>{
     console.log('started..')

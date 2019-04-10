@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/zellymiriam/e-shop#readme",
   "dependencies": {
+    "bcrypt": "*",
     "body-parser": "*",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "*",
     "multer": "^1.4.1",
     "pg": "^7.9.0",

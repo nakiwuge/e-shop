@@ -1,6 +1,7 @@
 const Category = require('../models/category')
 const Validate = require('../helpers/validation')
 
+
 let doValidation;
 
 //get a category
@@ -30,9 +31,10 @@ module.exports.addCategory = (req, res) => {
         res.send({
             data: category,
             message: "The category was successfully created"})
-    }).catch(err => {
+    }).catch(errors => {
+        console.log(errors.message)
         res.status(500).send({
-            message: err.message || "Some error occurred, please try again later."
+            message: errors.message || "Some error occurred, please try again later."
         });
     })
 }

@@ -8,7 +8,7 @@ class Validate {
 
         this.values.forEach(value => {
             if(!value || !value.trim()){
-               message = "This field cannot be empty"
+               message = "Please fill in empty fields"
         }})
 
         return message
