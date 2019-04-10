@@ -1,5 +1,6 @@
 const multer = require('multer')
 const Item = require('../controllers/item')
+const User = require('../controllers/user')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -28,7 +29,7 @@ const upload = multer({
 
 module.exports = (app) => {
     app.get('/api/items', Item.getItems)
-    app.post('/api/items/', upload.single('imageUrl'), Item.addItem)
+    app.post('/api/items/', User.verifyToken, upload.single('imageUrl'), Item.addItem)
     // app.post('/api/items', item.addItem)
     // app.put('/api/items/:id', item.updateItem)
     // app.delete('/api/items/:id', item.deleteItem)
