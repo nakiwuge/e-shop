@@ -1,4 +1,4 @@
-const Category = require('../models/category')
+const Category = require('../models').Category
 const Validate = require('../helpers/validation')
 
 
@@ -19,7 +19,8 @@ module.exports.getCategory = (req, res) => {
 
 //add a category
 module.exports.addCategory = (req, res) => {
-    data = { name: req.body.name }
+    const data = { name: req.body.name }
+
     doValidation = new Validate(data.name)
 
     if(doValidation.shouldNotBeEmpty()){
@@ -32,7 +33,6 @@ module.exports.addCategory = (req, res) => {
             data: category,
             message: "The category was successfully created"})
     }).catch(errors => {
-        console.log(errors.message)
         res.status(500).send({
             message: errors.message || "Some error occurred, please try again later."
         });

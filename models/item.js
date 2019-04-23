@@ -1,26 +1,28 @@
-const db = require('../config/database')
-const Sequelize = require('sequelize')
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Item = sequelize.define('Item', {
+    title:{
+      type:DataTypes.STRING
 
-const Item = db.define('item', {
-    title: {
-        type: Sequelize.STRING,
-        allowNull: false
     },
-    description: {
-        type: Sequelize.TEXT,
-    },
-    price: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    imageUrl: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    category: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
-})
+    description : {
+      type: DataTypes.TEXT,
+  },
+  price: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+  },
+  imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false
+  },
+  },
 
-module.exports = Item
+ {});
+
+  Item.associate = models => {
+    Item.belongsTo(models.Category, { onDelete: 'CASCADE' })
+    Item.belongsTo(models.User, {  as: 'userfkey', foreignKey: 'owner', onDelete: 'CASCADE'})
+  };
+  return Item;
+};
