@@ -39,3 +39,66 @@ module.exports.addCategory = (req, res) => {
     })
 }
 
+//get single category
+module.exports.getOneCategory = (req, res) => {
+    Category.findOne({ where: {id: req.params.id}}).then(category => {
+        if (category){
+            return res.send({category, status: "Success"})
+        }
+        res.status(404).send({
+            message: "Category not found"
+        })
+    }).catch(errors => {
+        res.status(500).send({
+            message: errors.message || "Some error occurred, please try again later."
+        });
+    })
+}
+
+//update category
+module.exports.updateCategory = (req, res) => {
+    const data = { name: req.body.name }
+    doValidation = new Validate(data.name)
+
+    if(doValidation.shouldNotBeEmpty()){
+        return res.send({
+            message: doValidation.shouldNotBeEmpty()})
+    }
+
+    Category.update(
+        { name: data.name },
+        { returning:true,
+         plain: true,
+         where: {id: req.params.id
+        }}).then(category => {
+         res.send({
+            data: category[1],
+            message: "The category was successfully updated"})
+    }).catch(errors => {
+        res.status(500).send({
+            message: errors.message || "Some error occurred, please try again later."
+        });
+    })
+}
+// delete category
+module.exports.deleteCategory = (req, res) => {
+    Category.destroy({
+        where:{
+            id: req.params.id
+        }
+    }).then((rowDeleted) => {
+        if (rowDeleted==1){
+            console.log(rowDeleted)
+         return res.status(200).send({
+            message: "Category been deleted successfully"})
+
+        }
+        return res.status(404).send({
+            message: "Category doesnot exist"})
+
+    }).catch(errors => {
+        res.status(500).send({
+            message: errors.message || "Some error occurred, please try again later."
+        });
+    })
+}
