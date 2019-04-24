@@ -1,9 +1,7 @@
-const db = require('../config/database')
-const Sequelize = require('sequelize')
-
-const User = db.define('User', {
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
     email: {
-        type: Sequelize.STRING(50),
+        type: DataTypes.STRING(50),
         allowNull: false,
         validate: {
             isEmail: true,
@@ -21,22 +19,19 @@ const User = db.define('User', {
         }}},
     },
     firstName: {
-        type: Sequelize.STRING(20),
+        type: DataTypes.STRING(20),
     },
     lastName: {
-        type: Sequelize.STRING(20),
+        type: DataTypes.STRING(20),
     },
     password: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     }
-},
-)
 
-User.associate = models => {
-    user.hasMany(models.category, {
-        foreignKey: 'userId',
-    });
+  }, {});
+  User.associate = models => {
+    User.hasMany(models.Item, {foreignKey: 'owner'})
+  };
+  return User;
 };
-
-module.exports = User

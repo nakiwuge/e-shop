@@ -1,4 +1,4 @@
-const Item = require('../models/item')
+const Item = require('../models').Item
 const Validate = require('../helpers/validation')
 
 let doValidation;
@@ -18,15 +18,18 @@ module.exports.getItems = (req,res) => {
 
 //add an Item
 module.exports.addItem = (req,res) => {
-    const { title, description, price, category } = req.body
+    const { title, description, price, CategoryId } = req.body
+
     const data = {
         title,
         description,
         price,
-        category,
-        imageUrl: req.file && req.file.path
+        CategoryId,
+        imageUrl: req.file && req.file.path,
+        owner: req.user.id
     }
-    doValidation = new Validate(title,price,category,data.imageUrl)
+
+    doValidation = new Validate(title,price,CategoryId,data.imageUrl)
 
     if(doValidation.shouldNotBeEmpty()){
         return res.send({

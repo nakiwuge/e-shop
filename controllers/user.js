@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
-const User = require('../models/user')
+const User = require('../models').User;
 const Validate = require('../helpers/validation')
 
 let doValidation;
@@ -97,12 +97,13 @@ module.exports.verifyToken = (req,res,next)=>{
         const bearer = header.split(' ')
         const token = bearer[1]
         req.token = token
-        jwt.verify(req.token, 'secretKey', (err)=>{
+        jwt.verify(req.token, 'secretKey', (err, user)=>{
             if(err){
                 res.status(403).send({
                     message: err.message
                 })
             } else {
+                req.user = user.user
                 next()
             }
         })} else {
@@ -110,4 +111,5 @@ module.exports.verifyToken = (req,res,next)=>{
                message: "You are not authorized. Please add a token "});
 
     }
+
 }
