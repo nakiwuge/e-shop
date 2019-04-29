@@ -2,6 +2,8 @@ const multer = require('multer')
 const Item = require('../controllers/item')
 const User = require('../controllers/user')
 
+import { isOwner } from '../middlewares/item'
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploads/')
@@ -30,9 +32,9 @@ const upload = multer({
 module.exports = (app) => {
     app.get('/api/items', Item.getItems)
     app.post('/api/items/', User.verifyToken, upload.single('imageUrl'), Item.addItem)
-    // app.post('/api/items', item.addItem)
-    // app.put('/api/items/:id', item.updateItem)
-    // app.delete('/api/items/:id', item.deleteItem)
+    app.get('/api/items/:id', Item.getOneItem)
+    app.put('/api/items/:id', User.verifyToken,isOwner,Item.updateItem)
+    app.delete('/api/items/:id', User.verifyToken,isOwner, Item.deleteItem)
 }
 
 
