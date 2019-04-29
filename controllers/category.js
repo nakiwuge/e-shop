@@ -88,7 +88,6 @@ module.exports.deleteCategory = (req, res) => {
         }
     }).then((rowDeleted) => {
         if (rowDeleted==1){
-            console.log(rowDeleted)
          return res.status(200).send({
             message: "Category been deleted successfully"})
 
