@@ -12,3 +12,4 @@ require('./routes/user')(app);
 app.listen(3000, ()=>{
     console.log('started..')
 })
+module.exports = app

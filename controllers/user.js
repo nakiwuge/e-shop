@@ -31,7 +31,7 @@ module.exports.addUser = (req,res) => {
 
         User.create(data).then((user)=>{
             user.password = undefined
-            res.send({
+            res.status(201).send({
                 data: user,
                 message:"The registration was successful"
             })
