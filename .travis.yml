@@ -1,0 +1,16 @@
+language: node_js
+node_js: node
+cache:
+  directories:
+    - node_modules
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database eshop_test;' -U postgres
+  - psql -c "CREATE USER miriam WITH PASSWORD '123';" -U postgres
+script:
+  - npm install
+  - npm test
+after_success:
+  - npm run coverage
+
