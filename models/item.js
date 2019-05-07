@@ -7,21 +7,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     description : {
       type: DataTypes.TEXT,
-    },
-    price: {
+  },
+  price: {
       type: DataTypes.INTEGER,
       allowNull: false
-    },
-    imageUrl: {
+  },
+  imageUrl: {
       type: DataTypes.STRING,
-    },
+  },
   },
 
-  {});
+ {});
 
   Item.associate = models => {
-    Item.belongsTo(models.Category, { onDelete: 'CASCADE' });
-    Item.belongsTo(models.User, {  as: 'userfkey', foreignKey: 'owner', onDelete: 'CASCADE'});
+    Item.belongsTo(models.Category, { onDelete: 'CASCADE' })
+    Item.belongsTo(models.User, {  as: 'userfkey', foreignKey: 'owner', onDelete: 'CASCADE'})
   };
   return Item;
 };
