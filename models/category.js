@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   Category.associate = models => {
-    Category.hasMany(models.Item)
+    Category.hasMany(models.Item);
   };
   return Category;
 };

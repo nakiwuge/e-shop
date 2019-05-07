@@ -10,6 +10,7 @@ before_script:
   - psql -c "CREATE USER miriam WITH PASSWORD '123';" -U postgres
 script:
   - npm install
+  - npm run migrateTest
   - npm test
 after_success:
   - npm run coverage
