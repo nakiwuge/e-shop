@@ -13,14 +13,14 @@ module.exports = {
       },
       description: {
         type: Sequelize.TEXT,
-    },
-    price: {
+      },
+      price: {
         type: Sequelize.INTEGER,
         allowNull: false
-    },
-    imageUrl: {
+      },
+      imageUrl: {
         type: Sequelize.STRING,
-    },
+      },
 
       createdAt: {
         allowNull: false,
@@ -38,16 +38,16 @@ module.exports = {
           key: 'id'
         },
         onDelete: 'CASCADE',
-    },
-    owner: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Users',
-        key: 'id'
       },
-      onDelete: 'CASCADE',
-  },
+      owner: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
