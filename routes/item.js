@@ -1,8 +1,10 @@
 const multer = require('multer');
 const Item = require('../controllers/item');
-const User = require('../controllers/user');
-
+import {verifyToken} from '../middlewares/auth';
 import { isOwner } from '../middlewares/item';
+import checkRole from '../middlewares/checkRole';
+
+const checkUserRole = new checkRole();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -31,10 +33,10 @@ const upload = multer({
 
 module.exports = (app) => {
   app.get('/api/items', Item.getItems);
-  app.post('/api/items/', User.verifyToken, upload.single('imageUrl'), Item.addItem);
+  app.post('/api/items/', verifyToken,upload.single('imageUrl'), checkUserRole.isNotBuyer, Item.addItem);
   app.get('/api/items/:id', Item.getOneItem);
-  app.put('/api/items/:id', User.verifyToken,isOwner,Item.updateItem);
-  app.delete('/api/items/:id', User.verifyToken,isOwner, Item.deleteItem);
+  app.put('/api/items/:id', verifyToken,isOwner,Item.updateItem);
+  app.delete('/api/items/:id', verifyToken,isOwner, Item.deleteItem);
 };
 
 

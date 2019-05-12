@@ -4,19 +4,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false,
       validate: {
-        isEmail: true,
-        isUnique:(req,res,value ) => {
-          if (value) {
-            User.findAll({
-              where : {
-                email : value
-              }
-            }).then(user => {
-              if (user) {
-                res.send({message:'Email already exists'});
-                // throw new Error('Email already exists')
-              }});
-          }}},
+        isEmail: true,},
     },
     firstName: {
       type: DataTypes.STRING(20),
@@ -27,8 +15,19 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    }
-
+    },
+    isSuperAdmin:{
+      type: DataTypes.BOOLEAN,
+    },
+    isAdmin:{
+      type: DataTypes.BOOLEAN,
+    },
+    isSeller:{
+      type: DataTypes.BOOLEAN,
+    },
+    isBuyer:{
+      type: DataTypes.BOOLEAN,
+    },
   }, {});
   User.associate = models => {
     User.hasMany(models.Item, {foreignKey: 'owner'});

@@ -80,6 +80,7 @@ module.exports.updateCategory = (req, res) => {
     });
   });
 };
+
 // delete category
 module.exports.deleteCategory = (req, res) => {
   Category.destroy({
