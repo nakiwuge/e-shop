@@ -17,8 +17,8 @@ module.exports.addUser = (req,res) => {
   }
 
   if (password!=confirmPassword){
-    return res.send({
-      message:'passwords do not match'});
+    return res.status(405).send({
+      error:'passwords do not match'});
   }
 
   bcrypt.hash(password, saltRounds, async function(err, hash) {
@@ -125,7 +125,7 @@ module.exports.getUsers = (req,res) => {
 module.exports.updateUserRole = async (req,res) => {
   const role = req.body;
   const isSuperAdmin = await User.findOne({where:{id: req.params.id, isSuperAdmin: false }});
-  
+
   if (!isSuperAdmin){
     return res.status(405).send({
       error :'you cannot change the role of this user'

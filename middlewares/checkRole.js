@@ -11,7 +11,7 @@ class checkRole {
     }}).then((user)=>{
       if(!user){
         return  res.status(405).send({
-          message: 'You have no permmission to perform this action'
+          error: 'You have no permmission to perform this action'
         });
       }
       next();
@@ -29,7 +29,7 @@ class checkRole {
     }}).then((user)=>{
       if(!user){
         return  res.status(405).send({
-          message: 'You have no permmission to perform this action'
+          error: 'You have no permmission to perform this action'
         });
       }
       next();
@@ -47,7 +47,7 @@ class checkRole {
     }}).then((user)=>{
       if(!user){
         return  res.status(405).send({
-          message: 'You have no permmission to perform this action'
+          error: 'You have no permmission to perform this action'
         });
       }
       next();

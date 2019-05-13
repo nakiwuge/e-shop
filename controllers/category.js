@@ -4,7 +4,7 @@ const Validate = require('../helpers/validation');
 
 let doValidation;
 
-//get a category
+//get all category
 module.exports.getCategory = (req, res) => {
   Category.findAll().then(categories => {
     res.status(200).json({

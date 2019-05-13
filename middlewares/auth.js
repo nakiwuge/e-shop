@@ -10,7 +10,7 @@ export const verifyToken = (req,res,next)=>{
     jwt.verify(req.token, 'secretKey', (err, user)=>{
       if(err){
         res.status(403).send({
-          message: err.message
+          error: err.message
         });
       } else {
         req.user = user.user;
@@ -18,6 +18,6 @@ export const verifyToken = (req,res,next)=>{
       }
     });} else {
     res.status(403).send({
-      message: 'You are not authorized. Please add a token '});
+      error: 'You are not authorized. Please add a token'});
   }
 };

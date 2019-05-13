@@ -10,11 +10,12 @@ const data = {
   lastName: 'nak',
   email:'mim@gmail.com',
   password: '123',
-  confirmPassword: '123'
+  confirmPassword: '123',
 };
 
 const AuthMock =  async () => {
   await User.destroy({
+    where:{ email: data.email},
     truncate: { cascade: true }
   });
 
@@ -23,11 +24,17 @@ const AuthMock =  async () => {
     .set('Content-Type', 'application/json')
     .send(data);
 
-  const response = await chai.request(app)
+  const buyerResponse = await chai.request(app)
     .post('/api/login')
     .send(data);
 
-  return response.body.data;
+  const superAdminResponse = await chai.request(app)
+    .post('/api/login')
+    .send({email:'aye@gmail.com', password:'123'});
+
+  return {
+    isBuyer:buyerResponse.body.data,
+    isSuperAdmin:superAdminResponse.body.data};
 };
 
 export default AuthMock;

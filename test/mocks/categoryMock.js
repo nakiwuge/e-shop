@@ -14,7 +14,7 @@ const CategoryMock =  async () => {
   const authResponse = await AuthMock();
   const response = await chai.request(app)
     .post('/api/categories')
-    .set('Authorization', `Bearer ${authResponse.token}`)
+    .set('Authorization', `Bearer ${authResponse.isSuperAdmin.token}`)
     .send({name:'shoes'});
 
   return { category:response.body.data, authResponse };

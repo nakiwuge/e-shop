@@ -1,6 +1,6 @@
 import models from '../models/index';
-import AuthMock from './mocks/authorizationMock';
 import CategoryMock from './mocks/categoryMock';
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../app');
@@ -8,10 +8,11 @@ const Item = models.Item;
 
 chai.use(chaiHttp);
 chai.should();
+
 let token;
 let item;
 let user;
-// let category;
+
 describe('Item', () =>{
   let data = {
     title:'brown shoes',
@@ -26,9 +27,11 @@ describe('Item', () =>{
       truncate: {cascade: true}});
 
     const categoryResponse = await CategoryMock();
-    token = categoryResponse.authResponse.token;
-    user =categoryResponse.authResponse.id;
-    data.CategoryId = categoryResponse.category.id;
+    const { authResponse:{isSuperAdmin}, category} = categoryResponse;
+
+    token = isSuperAdmin.token;
+    user = isSuperAdmin.id;
+    data.CategoryId = category.id;
   });
 
   describe('Create Item', () => {
