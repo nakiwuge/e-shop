@@ -5,11 +5,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-require('./routes/category')(app);
-require('./routes/item')(app);
-require('./routes/user')(app);
+require('./routes')(app);
 
-app.listen(3000, ()=>{
-  console.log('started..');
-});
+
+app.listen(3000, ()=>{});
 module.exports = app;

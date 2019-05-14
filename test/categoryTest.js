@@ -18,7 +18,8 @@ describe('Category', () =>{
     await Category.destroy({
       truncate: {cascade: true}});
     const response = await AuthMock();
-    token = response.token;
+
+    token = response.isSuperAdmin.token;
   });
 
   it('it should create a category', (done) => {
