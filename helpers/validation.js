@@ -1,18 +1,39 @@
 class Validate {
-  constructor (...values) {
-    this.values = values;
+  constructor (...fields) {
+    this.fields = fields;
   }
 
-  shouldNotBeEmpty () {
-    let message;
+  isEmpty () {
+    let error;
 
-    this.values.forEach(value => {
-      if(!value || !value.trim()){
-        message = 'Please fill in empty fields';
-      }});
+    this.fields.forEach(field => {
+      const fieldName = Object.keys(field)[0];
+      const fieldValue = Object.values(field)[0];
 
-    return message;
+      if(!fieldValue || !fieldValue.trim() ){
+
+        error = `${fieldName} should not be empty`;
+      }
+    });
+
+    return error;
+  }
+
+  isInteger(){
+    let error;
+
+    this.fields.forEach(field => {
+      const fieldName = Object.keys(field)[0];
+      const fieldValue = Object.values(field)[0];
+
+      if(Boolean(parseInt(fieldValue))==false){
+        error = `${fieldName} should be a number`;
+      }
+    });
+
+    return error;
   }
 }
+
 
 module.exports = Validate;

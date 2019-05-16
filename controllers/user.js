@@ -10,13 +10,13 @@ module.exports.addUser = (req,res) => {
   const saltRounds = 10;
   const { email, firstName, lastName, password , confirmPassword } = req.body;
 
-  doValidation = new Validate(email, firstName, lastName, password, confirmPassword);
-  if(doValidation.shouldNotBeEmpty()){
-    return res.send({
-      message: doValidation.shouldNotBeEmpty()});
+  doValidation = new Validate({email}, {firstName}, {lastName}, {password}, {confirmPassword});
+  if(doValidation.isEmpty()){
+    return res.status(405).send({
+      error: doValidation.isEmpty()});
   }
 
-  if (password!=confirmPassword){
+  if (password!==confirmPassword){
     return res.status(405).send({
       error:'passwords do not match'});
   }
@@ -63,9 +63,9 @@ module.exports.login = (req,res) => {
   const { email, password } = req.body;
 
   doValidation = new Validate(email, password);
-  if(doValidation.shouldNotBeEmpty()){
+  if(doValidation.isEmpty()){
     return res.send({
-      message: doValidation.shouldNotBeEmpty()});
+      message: doValidation.isEmpty()});
   }
 
   User.findOne({

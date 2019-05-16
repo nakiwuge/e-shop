@@ -62,7 +62,7 @@ describe('Item', () =>{
           if (err) {done(err);}
 
           res.should.have.status(403);
-          res.body.should.have.property('message').eql('Please fill in empty fields');
+          res.body.should.have.property('message').eql('CategoryId should be a number');
           done();
         });
     });
@@ -81,6 +81,17 @@ describe('Item', () =>{
           res.body.data[0].should.have.property('owner').eql(user);
           res.body.data[0].should.have.property('createdAt');
           res.body.should.have.property('message').eql('Success');
+          done();
+        });
+    });
+
+    it('it should throw internal server error', (done) => {
+      chai.request(app)
+        .get('/api/items/gtgtr')
+        .end((err, res) => {
+          if (err) {done(err);}
+        
+          res.should.have.status(500);
           done();
         });
     });
@@ -139,7 +150,7 @@ describe('Item', () =>{
           if (err) {done(err);}
 
           res.should.have.status(403);
-          res.body.should.have.property('message').eql('Please fill in empty fields');
+          res.body.should.have.property('message').eql('CategoryId should be a number');
           done();
         });
     });

@@ -21,11 +21,11 @@ module.exports.getCategory = (req, res) => {
 module.exports.addCategory = (req, res) => {
   const data = { name: req.body.name };
 
-  doValidation = new Validate(data.name);
+  doValidation = new Validate({name:req.body.name});
 
-  if(doValidation.shouldNotBeEmpty()){
+  if(doValidation.isEmpty()){
     return res.status(403).send({
-      message: doValidation.shouldNotBeEmpty()});
+      message: doValidation.isEmpty()});
   }
 
   Category.create(data).then(category => {
@@ -60,9 +60,9 @@ module.exports.updateCategory = (req, res) => {
   const data = { name: req.body.name };
   doValidation = new Validate(data.name);
 
-  if(doValidation.shouldNotBeEmpty()){
+  if(doValidation.isEmpty()){
     return res.status(403).send({
-      message: doValidation.shouldNotBeEmpty()});
+      message: doValidation.isEmpty()});
   }
 
   Category.update(

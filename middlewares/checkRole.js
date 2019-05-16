@@ -15,10 +15,6 @@ class checkRole {
         });
       }
       next();
-    }).catch(errors => {
-      res.status(500).send({
-        message: errors.message || 'Some error occurred, please try again later.'
-      });
     });
   }
 
@@ -33,10 +29,6 @@ class checkRole {
         });
       }
       next();
-    }).catch(errors => {
-      res.status(500).send({
-        message: errors.message || 'Some error occurred, please try again later.'
-      });
     });
   }
 
@@ -51,10 +43,6 @@ class checkRole {
         });
       }
       next();
-    }).catch(errors => {
-      res.status(500).send({
-        message: errors.message || 'Some error occurred, please try again later.'
-      });
     });
   }
 };
