@@ -64,6 +64,19 @@ describe('User', () =>{
       });
   });
 
+  it('it should throw error if required fields are empty registration', (done) => {
+    chai.request(app)
+      .post('/api/register')
+      .send({firstName: 'mim'})
+      .end((err, res) => {
+        if (err) done(err);
+
+        res.should.have.status(405);
+        res.body.should.have.property('error').eql('confirmPassword should not be empty');
+        done();
+      });
+  });
+
   it('it should login a user', (done) => {
     chai.request(app)
       .post('/api/login')

@@ -30,11 +30,17 @@ module.exports.addItem = (req,res) => {
     owner: req.user.id
   };
 
-  doValidation = new Validate(title,price);
+  doValidation = new Validate({title});
 
-  if(doValidation.shouldNotBeEmpty()){
+  if(doValidation.isEmpty()){
     return res.status(403).send({
-      message: doValidation.shouldNotBeEmpty()});
+      message: doValidation.isEmpty()});
+  }
+
+  doValidation = new Validate({price},{CategoryId});
+  if(doValidation.isInteger()){
+    return res.status(403).send({
+      message: doValidation.isInteger()});
   }
 
   Item.create(data).then((item)=>{
@@ -83,11 +89,17 @@ module.exports.updateItem = (req,res) => {
     owner: req.user.id
   };
 
-  doValidation = new Validate(title,price);
+  doValidation = new Validate({title});
 
-  if(doValidation.shouldNotBeEmpty()){
+  if(doValidation.isEmpty()){
     return res.status(403).send({
-      message: doValidation.shouldNotBeEmpty()});
+      message: doValidation.isEmpty()});
+  }
+
+  doValidation = new Validate({price},{CategoryId});
+  if(doValidation.isInteger()){
+    return res.status(403).send({
+      message: doValidation.isInteger()});
   }
 
   Item.update(
