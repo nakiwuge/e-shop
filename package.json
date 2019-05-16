@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "simple web app",
   "main": "app.js",
+  "engines": {
+    "node":"11.3.0"
+  },
   "scripts": {
-    "start": "node app",
+    "start": "node_modules/.bin/sequelize  db:migrate && node --require babel-register  app.js",
     "dev": "nodemon --require babel-register app.js",
     "migrateTest": "NODE_ENV=test  node_modules/.bin/sequelize db:migrate:undo:all &&  node_modules/.bin/sequelize db:migrate --env test",
     "seedTest": "NODE_ENV=test  node_modules/.bin/sequelize db:seed:all",
