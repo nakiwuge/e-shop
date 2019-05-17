@@ -7,6 +7,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./routes')(app);
 
+const port = process.env.PORT || 3000;
 
-app.listen(3000, ()=>{});
+app.listen(port, ()=>{});
 module.exports = app;
