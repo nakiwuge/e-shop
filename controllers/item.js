@@ -1,7 +1,10 @@
+import { uploader, cloudinaryConfig } from '../config/cloudinaryConfig';
+import { dataUri } from '../middlewares/multer';
 const Item = require('../models').Item;
 const Validate = require('../helpers/validation');
 
 let doValidation;
+
 //get all Items
 module.exports.getItems = (req,res) => {
   Item.findAll().then((items)=>{
@@ -18,7 +21,7 @@ module.exports.getItems = (req,res) => {
 };
 
 //add an Item
-module.exports.addItem = (req,res) => {
+module.exports.addItem = async (req,res) => {
   const { title, description, price, CategoryId } = req.body;
 
   const data = {
@@ -26,7 +29,6 @@ module.exports.addItem = (req,res) => {
     description,
     price,
     CategoryId,
-    imageUrl: req.file && req.file.path,
     owner: req.user.id
   };
 
@@ -43,6 +45,12 @@ module.exports.addItem = (req,res) => {
       message: doValidation.isInteger()});
   }
 
+  if(req.file){
+    const file = dataUri(req).content;
+    const result = await uploader.upload(file);
+    data.imageUrl = result.url;
+  }
+
   Item.create(data).then((item)=>{
     res.status(201).send({
       data:item,
@@ -54,6 +62,7 @@ module.exports.addItem = (req,res) => {
     });
   });
 };
+
 //get one Item
 module.exports.getOneItem = (req,res) => {
   Item.findOne({where: {

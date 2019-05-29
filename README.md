@@ -22,6 +22,9 @@ Run `git clone https://github.com/zellymiriam/e-shop.git` to clone the repositor
 #Running the tests
 - Run `npm run test` to run tests
 
+#Deployment
+-  The app is deployed to heroku. [API link](https://eshop-gula.herokuapp.com)
+
 #Authors
 
 - Miriam Nakiwuge
