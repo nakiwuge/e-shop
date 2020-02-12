@@ -90,7 +90,7 @@ describe('Item', () =>{
         .get('/api/items/gtgtr')
         .end((err, res) => {
           if (err) {done(err);}
-        
+
           res.should.have.status(500);
           done();
         });
